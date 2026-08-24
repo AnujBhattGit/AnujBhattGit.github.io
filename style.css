@@ -22,3 +22,20 @@ h2 {
 p {
     font-size: 18px;
 }
+
+nav {
+    display: flex;
+    justify-content: flex-end;
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #2563eb;
+}
