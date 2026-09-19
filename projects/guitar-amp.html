@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Electric guitar amplifier project — analog amplifier design, testing, and results.">
+    <meta name="author" content="Anuj Bhatt">
+
+    <title>Electric Guitar Amplifier | Anuj Bhatt</title>
+
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+    <!-- Navigation (same as index.html, links point back to the sections there) -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="../index.html" class="nav-logo">AB<span>.</span></a>
+
+            <div class="nav-links">
+                <a href="../index.html#about">About</a>
+                <a href="../index.html#projects">Projects</a>
+                <a href="../index.html#skills">Skills</a>
+                <a href="../index.html#contact">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="breadcrumb">
+        <a href="../index.html#projects">← Back to projects</a>
+    </div>
+
+    <main>
+
+        <!-- Project Hero -->
+        <section class="project-hero">
+            <p class="eyebrow">PROJECT / 01</p>
+
+            <h1>Electric Guitar Amplifier</h1>
+
+            <p class="hero-description">
+                As a guitar player, the circuitry behind electric guitars and their amplifiers
+                is often abstracted away. This project was about opening that box: investigating
+                the different classes of analog amplifiers, how they work together on a single
+                board, and how a pluck on a string ends up as a full, shaped sound at the speaker.
+            </p>
+
+            <!-- TODO: swap for "Complete" once you're done, or remove entirely -->
+            <span class="project-status">In progress</span>
+
+            <div class="tech-list">
+                <span>Amplifier Circuits</span>
+                <span>Scoping and Testing</span>
+                <span>Noise and Signal Response</span>
+            </div>
+        </section>
+
+
+        <!-- Design & Calculations -->
+        <section class="section">
+            <div class="section-label">DESIGN & CALCULATIONS</div>
+
+            <div class="prose">
+                <p>
+                    <!-- TODO: replace with your actual topology / design decisions -->
+                    The amplifier is built around a two-stage design: a preamp stage that sets the
+                    input gain and shapes tone, followed by a power stage that drives the speaker
+                    load. I chose component values by working backward from a target gain and
+                    output swing, then checked each stage's frequency response so the guitar's
+                    full range came through without unwanted rolloff.
+                </p>
+
+                <p>
+                    The full derivation — including bias point calculations, gain equations for
+                    each stage, and component tolerances — is in the write-up linked below. The
+                    schematic and the key results are summarized here.
+                </p>
+            </div>
+
+            <div class="schematic-block">
+                <!-- TODO: replace with your actual schematic image -->
+                <img src="../assets/guitar-amp/schematic.png" alt="Guitar amplifier circuit schematic">
+                <p class="schematic-caption">Full circuit schematic — preamp and power stages.</p>
+            </div>
+
+            <div class="equation-block">
+                <span class="equation-label">STAGE GAIN</span>
+                <!-- TODO: replace with your actual gain equation for this topology -->
+                A<sub>v</sub> = −R<sub>f</sub> / R<sub>in</sub>
+            </div>
+
+            <div class="equation-block">
+                <span class="equation-label">LOWER CUTOFF FREQUENCY</span>
+                <!-- TODO: replace with your actual cutoff equation -->
+                f<sub>c</sub> = 1 / (2π R C)
+            </div>
+        </section>
+
+
+        <!-- Build Log -->
+        <section class="section">
+            <div class="section-label">BUILD LOG</div>
+
+            <div class="section-heading">
+                <h2 class="section-title">
+                    How it <span>came together.</span>
+                </h2>
+            </div>
+
+            <div class="build-log">
+
+                <!--
+                    TODO: rewrite from your AI log in your own words.
+                    Keep each entry to what you tried, what happened, and what you
+                    changed — a reader should be able to follow your debugging logic,
+                    not just a timestamped list of actions.
+                -->
+
+                <div class="log-entry">
+                    <p class="log-date">WEEK 1</p>
+                    <h4>Choosing a topology</h4>
+                    <p>
+                        Started by comparing amplifier classes to decide what fit a guitar
+                        signal's dynamic range. Landed on a two-stage design as a balance
+                        between simplicity and having independent control over gain and
+                        tone shaping.
+                    </p>
+                </div>
+
+                <div class="log-entry">
+                    <p class="log-date">WEEK 2</p>
+                    <h4>First bring-up</h4>
+                    <p>
+                        Built the preamp stage first and measured gain against my hand
+                        calculations. Initial gain was off from the target — traced it to
+                        underestimating the op-amp's output impedance loading the next stage,
+                        and adjusted the feedback resistor to compensate.
+                    </p>
+                </div>
+
+                <div class="log-entry">
+                    <p class="log-date">WEEK 3</p>
+                    <h4>Adding the power stage</h4>
+                    <p>
+                        Connected the power stage and drove a test speaker load. Saw clipping
+                        at lower input levels than expected, which pointed to the power stage's
+                        supply rail being too close to the required output swing — increased
+                        headroom by revisiting the supply design.
+                    </p>
+                </div>
+
+                <div class="log-entry">
+                    <p class="log-date">WEEK 4</p>
+                    <h4>Noise cleanup</h4>
+                    <p>
+                        Noticed hum on the scope at idle. Isolated it to a ground loop between
+                        the preamp and power stage grounds and fixed it with a single-point
+                        ground reference.
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+
+        <!-- Testing & Results -->
+        <section class="section">
+            <div class="section-label">TESTING & RESULTS</div>
+
+            <div class="section-heading">
+                <h2 class="section-title">
+                    Measured <span>performance.</span>
+                </h2>
+
+                <p>
+                    Oscilloscope and multimeter measurements taken across the input
+                    range, compared against the calculated design targets.
+                </p>
+            </div>
+
+            <div class="image-gallery">
+
+                <!-- TODO: replace src/alt/captions with your actual scope + DMM captures -->
+
+                <figure class="gallery-item">
+                    <img src="../assets/guitar-amp/scope-01.jpg" alt="Oscilloscope capture of output waveform">
+                    <figcaption>
+                        Output waveform at 1 kHz input, showing clean amplification below
+                        the clipping threshold.
+                    </figcaption>
+                </figure>
+
+                <figure class="gallery-item">
+                    <img src="../assets/guitar-amp/scope-02.jpg" alt="Oscilloscope capture showing clipping onset">
+                    <figcaption>
+                        Clipping onset once input amplitude exceeds the stage's linear
+                        range.
+                    </figcaption>
+                </figure>
+
+                <figure class="gallery-item">
+                    <img src="../assets/guitar-amp/dmm-01.jpg" alt="Multimeter reading of DC bias point">
+                    <figcaption>
+                        Measured DC bias point at the preamp output, compared against the
+                        calculated value.
+                    </figcaption>
+                </figure>
+
+            </div>
+
+            <div class="results-plot">
+                <!-- TODO: replace with your numpy/matplotlib gain plot -->
+                <img src="../assets/guitar-amp/gain-plot.png" alt="Measured gain vs frequency plot">
+                <p class="schematic-caption">Measured gain vs. frequency, generated in Python with NumPy and Matplotlib.</p>
+            </div>
+
+            <div class="data-table-wrap">
+                <!-- TODO: replace with your actual measured data -->
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Frequency (Hz)</th>
+                            <th>Calculated Gain</th>
+                            <th>Measured Gain</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>100</td>
+                            <td>18.2 dB</td>
+                            <td>17.9 dB</td>
+                        </tr>
+                        <tr>
+                            <td>1,000</td>
+                            <td>20.0 dB</td>
+                            <td>19.8 dB</td>
+                        </tr>
+                        <tr>
+                            <td>10,000</td>
+                            <td>19.6 dB</td>
+                            <td>18.7 dB</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+
+        <!-- Files -->
+        <section class="section">
+            <div class="section-label">FILES</div>
+
+            <div class="files-list">
+                <!-- TODO: point these at your actual files once they're in the repo -->
+                <a href="../assets/guitar-amp/schematic.png">Schematic (PNG) ↗</a>
+                <a href="../assets/guitar-amp/component-calculations.pdf">Component Write-Up (PDF) ↗</a>
+                <a href="https://github.com/AnujBhattGit" target="_blank" rel="noopener noreferrer">Source on GitHub ↗</a>
+            </div>
+        </section>
+
+    </main>
+
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            © 2026 Anuj Bhatt
+        </div>
+
+        <div>
+            Built with HTML, CSS & GitHub Pages.
+        </div>
+    </footer>
+
+</body>
+</html>
